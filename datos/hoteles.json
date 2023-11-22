@@ -1,0 +1,57 @@
+[
+    {
+        "nro_cliente": "000001",
+        "nombre": "Juan",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "44266892",
+        "email": "cliente1@test.com",
+        "tipoCliente": "individual",
+        "pais": "Argentina",
+        "ciudad": "Avellaneda",
+        "telefono": "1132901352"
+    },
+    {
+        "nro_cliente": "000002",
+        "nombre": "Ramon",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "22223536",
+        "email": "abc@gmail.com",
+        "tipoCliente": "corporativo",
+        "pais": "Peru",
+        "ciudad": "Bali",
+        "telefono": "114423345"
+    },
+    {
+        "nro_cliente": "000003",
+        "nombre": "Roberto",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "42452552",
+        "email": "abc@gmail.com",
+        "tipoCliente": "corporativo",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
+        "telefono": "123567547"
+    },
+    {
+        "nro_cliente": "000004",
+        "nombre": "alberto",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "42452552",
+        "email": "abc@gmail.com",
+        "tipoCliente": "corporativo",
+        "pais": "Polonia",
+        "ciudad": "Macedonia",
+        "telefono": "123567547"
+    },
+    {
+        "nro_cliente": "000005",
+        "nombre": "roberto",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "42452552",
+        "email": "abc@gmail.com",
+        "tipoCliente": "corporativo",
+        "pais": "Polonia",
+        "ciudad": "abc",
+        "telefono": "123567547"
+    }
+]
