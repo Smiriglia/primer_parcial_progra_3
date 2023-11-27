@@ -66,7 +66,7 @@
 
         public static function TraerUnaReserva($id)
         {
-            $reservas = Cliente::TraerTodo();
+            $reservas = Reserva::TraerTodo();
             foreach ($reservas as $reserva) 
             {
                 if ($reserva->id === $id)

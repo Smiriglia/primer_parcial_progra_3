@@ -1,18 +1,18 @@
 <?php
 
-    require_once("./models/class_reserva.php");
+    require_once("./models/class_cliente.php");
 
-    class ReservaController {
-        private function SubirFotoReserva($fotoReserva, $nroreserva, $tiporeserva )
+    class ClienteController {
+        private function SubirFotoPerfil($fotoPerfil, $nroCliente, $tipoCliente )
         {
             
-            $carpeta_archivos = './ImagenesDeReservas2023/';
+            $carpeta_archivos = './ImagenesDeClientes/2023';
 
-            $nombre_archivo = $fotoReserva['name'];
-            $extension = pathinfo($fotoReserva['name'] , PATHINFO_EXTENSION);
-            $nombre_archivo = $nroreserva . $tiporeserva . "." . $extension;
-            $tipo_archivo = $fotoReserva['type'];
-            $tamano_archivo = $fotoReserva['size'];
+            $nombre_archivo = $fotoPerfil['name'];
+            $extension = pathinfo($fotoPerfil['name'] , PATHINFO_EXTENSION);
+            $nombre_archivo = $nroCliente . $tipoCliente . "." . $extension;
+            $tipo_archivo = $fotoPerfil['type'];
+            $tamano_archivo = $fotoPerfil['size'];
 
             // Ruta destino, carpeta + nombre del archivo que quiero guardar
             $ruta_destino = $carpeta_archivos . $nombre_archivo;
@@ -23,7 +23,11 @@
             }
             else
             {
-                if (move_uploaded_file($fotoReserva['tmp_name'],  $ruta_destino))
+                echo $fotoPerfil['name'];
+                echo $fotoPerfil['tmp_name'];
+
+                var_dump($fotoPerfil);
+                if (move_uploaded_file($fotoPerfil['tmp_name'],  $ruta_destino))
                 {
                     return "El archivo ha sido cargado correctamente.";
                 }
@@ -34,56 +38,77 @@
             }
         }
 
-        public function insertarReserva($tiporeserva, , $numeroDocumento, $email, $tiporeserva, $pais, $ciudad, $telefono, $fotoPerfil) {
-            $reserva = new Reserva();
-            $reserva->nombre = $nombre;
-            $reserva->tipoDocumento = $tipoDocumento;
-            $reserva->numeroDocumento = $numeroDocumento;
-            $reserva->email = $email;
-            $reserva->pais = $pais;
-            $reserva->ciudad = $ciudad;
-            $reserva->telefono = $telefono;
+        public function insertarCliente($nombre, $tipoDocumento, $numeroDocumento, $email, $tipoCliente, $pais, $ciudad, $telefono, $fotoPerfil) {
+            $cliente = new Cliente();
+            $cliente->nombre = $nombre;
+            $cliente->tipoDocumento = $tipoDocumento;
+            $cliente->numeroDocumento = $numeroDocumento;
+            $cliente->email = $email;
+            $cliente->pais = $pais;
+            $cliente->ciudad = $ciudad;
+            $cliente->telefono = $telefono;
             
-            if ($reserva->setTiporeserva($tiporeserva))
+            if ($cliente->setTipoCliente($tipoCliente))
             {
-                $nroReserva = $reserva->Insertar();
-                return $this->SubirFotoReserva($fotoPerfil, $nroReserva, $reserva->tiporeserva);
+                $nroCliente = $cliente->Insertar();
+                return $this->SubirFotoPerfil($fotoPerfil, $nroCliente, $cliente->tipoCliente);
             }
             else
             {
-                return "El tipo del reserva es invalido";
+                return "El tipo del cliente es invalido";
             }
         }
 
-        // public function modificarreserva($id, $titulo, $cantante, $anio) {
-        //     $reserva = new reserva();
-        //     $reserva->id = $id;
-        //     $reserva->titulo = $titulo;
-        //     $reserva->cantante = $cantante;
-        //     $reserva->año = $anio;
-        //     return $reserva->ModificarreservaParametros();
+        public function ConsultarCliente($nroCliente, $tipoCliente)
+        {
+            $cliente = Cliente::TraerUnCliente($nroCliente);
+            if (isset($cliente))
+            {
+
+                if ($cliente->tipoCliente === $tipoCliente)
+                {
+                    return $cliente->MostrarDatos();
+                }
+                else
+                {
+                    return "tipo de cliente incorrecto.";
+                }
+            }
+            else
+            {
+                return "Cliente inexistente";
+            }
+        }
+
+        // public function modificarCliente($id, $titulo, $cantante, $anio) {
+        //     $cliente = new Cliente();
+        //     $cliente->id = $id;
+        //     $cliente->titulo = $titulo;
+        //     $cliente->cantante = $cantante;
+        //     $cliente->año = $anio;
+        //     return $cliente->ModificarClienteParametros();
         // }
 
-        // public function borrarreserva($id) {
-        //     $reserva = new reserva();
-        //     $reserva->id = $id;
-        //     return $reserva->Borrarreserva();
+        // public function borrarCliente($id) {
+        //     $Cliente = new Cliente();
+        //     $Cliente->id = $id;
+        //     return $Cliente->BorrarCliente();
         // }
 
-        // public function listarreservas() {
-        //     return reserva::TraerTodoLosreservas();
+        // public function listarClientes() {
+        //     return Cliente::TraerTodoLosClientes();
         // }
 
-        // public function buscarreservaPorId($id) {
-        //     $retorno = reserva::TraerUnreserva($id);
+        // public function buscarClientePorId($id) {
+        //     $retorno = Cliente::TraerUnCliente($id);
         //     if($retorno === false) { // Validamos que exista y si no mostramos un error
         //         $retorno =  ['error' => 'No existe ese id'];
         //     }
         //     return $retorno;
         // }
 
-        // public function buscarreservaPorIdYAnio($id, $anio) {
-        //     return reserva::TraerUnreservaAnioParamNombre($id, $anio);
+        // public function buscarClientePorIdYAnio($id, $anio) {
+        //     return Cliente::TraerUnClienteAnioParamNombre($id, $anio);
         // }
     }
 ?>

@@ -45,10 +45,6 @@
                     break;
                 }
             }
-            foreach ($clientes as $cliente)
-            {
-                
-            }
             if (!$flagEncontrado)
             {
                 $objetoUltimoNroCliente["nro_cliente"] += 1;
