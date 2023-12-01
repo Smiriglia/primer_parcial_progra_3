@@ -1,0 +1,29 @@
+[
+    {
+        "id": 2,
+        "tipoCliente": "individual",
+        "nro_cliente": "000003",
+        "fechaEntrada": "20\/12\/2005",
+        "fechaSalida": "15\/03\/2008",
+        "tipoHabitacion": "doble",
+        "importeTotal": "500"
+    },
+    {
+        "id": 3,
+        "tipoCliente": "individual",
+        "nro_cliente": "000003",
+        "fechaEntrada": "20\/12\/2005",
+        "fechaSalida": "15\/03\/2008",
+        "tipoHabitacion": "doble",
+        "importeTotal": "1000"
+    },
+    {
+        "id": 4,
+        "tipoCliente": "individual",
+        "nro_cliente": "000001",
+        "fechaEntrada": "20\/12\/2005",
+        "fechaSalida": "15\/03\/2008",
+        "tipoHabitacion": "suite",
+        "importeTotal": "1200"
+    }
+]

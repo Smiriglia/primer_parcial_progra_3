@@ -73,7 +73,7 @@
         "email": "abc@gmail.com",
         "tipoCliente": "individual",
         "pais": "Polonia",
-        "ciudad": "Madri",
+        "ciudad": "Madrid",
         "telefono": "123567547"
     },
     {
@@ -85,6 +85,39 @@
         "tipoCliente": "corporativo",
         "pais": "Polonia",
         "ciudad": "Madri",
+        "telefono": "123567547"
+    },
+    {
+        "nro_cliente": "000009",
+        "nombre": "Arauj",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "42452552",
+        "email": "abc@gmail.com",
+        "tipoCliente": "individual",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
+        "telefono": "123567547"
+    },
+    {
+        "nro_cliente": "000010",
+        "nombre": "Araun",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "42452552",
+        "email": "abc@gmail.com",
+        "tipoCliente": "individual",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
+        "telefono": "123567547"
+    },
+    {
+        "nro_cliente": "000011",
+        "nombre": "Arauna",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "42452552",
+        "email": "abc@gmail.com",
+        "tipoCliente": "individual",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
         "telefono": "123567547"
     }
 ]

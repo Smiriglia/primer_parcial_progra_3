@@ -25,5 +25,7 @@
         {
             echo "No has ingresado una accion posible";
         }
+
     }
+    
 ?>

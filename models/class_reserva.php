@@ -8,6 +8,7 @@
         public $fechaEntrada;
         public $fechaSalida;
         public $tipoHabitacion;
+        public $importeTotal;
 
         public function setTipoHabitacion($tipo)
         {
@@ -45,7 +46,7 @@
             return $this->id;
         }
 
-        public static function TraerTodo($rutaArchivo = "./datos/hoteles.json")
+        public static function TraerTodo($rutaArchivo = "./datos/reservas.json")
         {
             $objetoAccesoDato = new ManejadorArchivos($rutaArchivo);
             $reservasNoParseados = $objetoAccesoDato->leer();
@@ -59,6 +60,7 @@
                 $reserva->fechaSalida = $reservaNoParseado["fechaSalida"];
                 $reserva->setTipoHabitacion($reservaNoParseado["tipoHabitacion"]);
                 $reserva->tipoCliente = $reservaNoParseado["tipoCliente"];
+                $reserva->importeTotal = $reservaNoParseado["importeTotal"];
                 $reservas[] = $reserva;
             }
             return $reservas;
@@ -75,6 +77,48 @@
                 }
             }
         }
+
+        public static function CalcularTotalReservas($tipoHabitacion, $fecha){
+            $importeTotal = 0;
+            $reservas = Reserva::TraerTodo();
+            $tipoHabitacion = strtolower($tipoHabitacion);
+            foreach ($reservas as $reserva) 
+            {
+                if ($reserva->tipoHabitacion === $tipoHabitacion and $reserva->fechaEntrada == $fecha)
+                {
+                    $importeTotal += $reserva->importeTotal;
+                }
+            }
+            return $importeTotal;
+        }
+
+        public static function ObtenerReservasCliente($cliente)
+        {
+            $reservasCliente = [];
+            $reservas = Reserva::TraerTodo();
+            foreach ($reservas as $reserva) 
+            {
+                if ($cliente->nro_cliente == $reserva->nro_cliente)
+                    $reservasCliente[] = $reserva;
+            }
+            return $reservasCliente;
+        }
+
+        public static function ObtenerReservasTipoHabitacion($tipoHabitacion)
+        {
+            $reservas = Reserva::TraerTodo();
+            $reservasFiltradas = [];
+            foreach ($reservas as $reserva) 
+            {
+                if ($reserva->tipoHabitacion == $tipoHabitacion)
+                {
+                    $reservasFiltradas[] = $reserva;
+                }
+            }
+            return $reservasFiltradas;
+        }
+
+
 
     //     public static function TraerUnCdAnio($id, $anio)
     //     {

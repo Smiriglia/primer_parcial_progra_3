@@ -6,7 +6,7 @@
         private function SubirFotoPerfil($fotoPerfil, $nroCliente, $tipoCliente )
         {
             
-            $carpeta_archivos = './ImagenesDeClientes/2023';
+            $carpeta_archivos = './ImagenesDeClientes/2023/';
 
             $nombre_archivo = $fotoPerfil['name'];
             $extension = pathinfo($fotoPerfil['name'] , PATHINFO_EXTENSION);
@@ -23,10 +23,6 @@
             }
             else
             {
-                echo $fotoPerfil['name'];
-                echo $fotoPerfil['tmp_name'];
-
-                var_dump($fotoPerfil);
                 if (move_uploaded_file($fotoPerfil['tmp_name'],  $ruta_destino))
                 {
                     return "El archivo ha sido cargado correctamente.";
@@ -78,6 +74,16 @@
             {
                 return "Cliente inexistente";
             }
+        }
+
+        public function ObtenerReservas($nroCliente)
+        {
+            $cliente = Cliente::TraerUnCliente($nroCliente);
+            if (isset($cliente))
+                $reservasCliente = Reserva::ObtenerReservasCliente($cliente);
+            else
+                $reservasCliente = [];
+            return json_encode($reservasCliente, JSON_PRETTY_PRINT);
         }
 
         // public function modificarCliente($id, $titulo, $cantante, $anio) {
