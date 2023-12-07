@@ -1,31 +1,24 @@
 <?php
     require_once("./controllers/cliente_controller.php");
+    require_once("./bibliotecas/utilidades.php");
     $clienteController = new ClienteController();
-    function EstaInsertandoCliente()
-    {
-        $parametros = ["nombre", "tipoDocumento","numeroDocumento","email","tipoCliente","pais","ciudad","telefono"];
-        if (!isset($_FILES['foto_perfil']))
-            return false;
-        foreach ($parametros as $parametro)
-        {
-            if (!isset($_POST[$parametro]))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    $respuesta;
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         if (EstaInsertandoCliente())
         {
-            echo $clienteController->insertarCliente($_POST["nombre"], $_POST["tipoDocumento"], $_POST["numeroDocumento"], $_POST["email"], $_POST["tipoCliente"],$_POST["pais"],$_POST["ciudad"],$_POST["telefono"], $_FILES['foto_perfil']);
+            if (isset($_POST["modalidadPago"]))
+                $modalidad = $_POST["modalidadPago"];
+            else
+                $modalidad = "efectivo";
+            $respuesta = $clienteController->insertarCliente($_POST["nombre"], $_POST["tipoDocumento"], $_POST["numeroDocumento"], $_POST["email"], $_POST["tipoCliente"],$_POST["pais"],$_POST["ciudad"],$_POST["telefono"], $modalidad, $_FILES['foto_perfil']);
         }
         else
         {
-            echo "No has ingresado una accion posible";
+            $respuesta = ['error' => "No has ingresado una accion posible"];
         }
-
+        echo json_encode($respuesta, JSON_PRETTY_PRINT);
     }
     
 ?>

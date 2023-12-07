@@ -96,6 +96,20 @@
             return json_encode($listaTipos, JSON_PRETTY_PRINT);
         }
 
+        public function CancelarReserva($nro_cliente, $tipoCliente, $idReserva)
+        {
+            return Reserva::CancelarReserva($nro_cliente, $tipoCliente, $idReserva);
+        }
+
+        public function AjustarReserva($idReserva, $motivoAjuste)
+        {
+            $reserva = Reserva::TraerUnaReserva($idReserva);
+            if (isset($reserva))
+                return $reserva->Ajustar($motivoAjuste);
+            else
+                return ['error' => 'Error, Reserva inexistente'];
+        }
+
         
 
         // public function modificarreserva($id, $titulo, $cantante, $anio) {

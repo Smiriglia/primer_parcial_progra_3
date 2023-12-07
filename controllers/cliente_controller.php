@@ -3,14 +3,16 @@
     require_once("./models/class_cliente.php");
 
     class ClienteController {
-        private function SubirFotoPerfil($fotoPerfil, $nroCliente, $tipoCliente )
+        private function SubirFotoPerfil($fotoPerfil, $cliente)
         {
-            
+            $nroCliente = $cliente->nro_cliente;
+            $tipoCliente = $cliente->tipoCliente;
+
             $carpeta_archivos = './ImagenesDeClientes/2023/';
 
             $nombre_archivo = $fotoPerfil['name'];
             $extension = pathinfo($fotoPerfil['name'] , PATHINFO_EXTENSION);
-            $nombre_archivo = $nroCliente . $tipoCliente . "." . $extension;
+            $nombre_archivo = $nroCliente . substr($tipoCliente, 0, 2) . "." . $extension;
             $tipo_archivo = $fotoPerfil['type'];
             $tamano_archivo = $fotoPerfil['size'];
 
@@ -19,56 +21,68 @@
 
             // Realizamos las validaciones del archivo
             if (!((strpos($tipo_archivo, "png") || strpos($tipo_archivo, "jpeg")) && ($tamano_archivo < 1000000))) {
-                return "La extensión o el tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos .png o .jpg<br><li>se permiten archivos de 1000 Kb máximo.</td></tr></table>";
+                ['error' => "La extensión o el tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos .png o .jpg<br><li>se permiten archivos de 1000 Kb máximo.</td></tr></table>"];
             }
             else
             {
                 if (move_uploaded_file($fotoPerfil['tmp_name'],  $ruta_destino))
                 {
-                    return "El archivo ha sido cargado correctamente.";
+                    $cliente->nombreArchivo = $nombre_archivo;
+                    return ['mensaje' => "El archivo ha sido cargado correctamente."];
                 }
                 else
                 {
-                    return "Ocurrió algún error al subir el fichero. No pudo guardarse.";
+                    return ['error' => "Ocurrió algún error al subir el fichero. No pudo guardarse."];
                 }
             }
         }
 
-        public function insertarCliente($nombre, $tipoDocumento, $numeroDocumento, $email, $tipoCliente, $pais, $ciudad, $telefono, $fotoPerfil) {
+        public function insertarCliente($nombre, $tipoDocumento, $numeroDocumento, $email, $tipoCliente, $pais, $ciudad, $telefono, $modalidadPago = "efectivo", $fotoPerfil = null) {
             $cliente = new Cliente();
             $cliente->nombre = $nombre;
-            $cliente->tipoDocumento = $tipoDocumento;
-            $cliente->numeroDocumento = $numeroDocumento;
             $cliente->email = $email;
             $cliente->pais = $pais;
             $cliente->ciudad = $ciudad;
             $cliente->telefono = $telefono;
+            $cliente->modalidadPago = $modalidadPago;
             
-            if ($cliente->setTipoCliente($tipoCliente))
+            if ($cliente->setTipoCliente($tipoCliente) and $cliente->SetTipoDocumento($tipoDocumento) and $cliente->SetNumeroDocumento($numeroDocumento))
             {
-                $nroCliente = $cliente->Insertar();
-                return $this->SubirFotoPerfil($fotoPerfil, $nroCliente, $cliente->tipoCliente);
+                $cliente->SetNroCliente();
+                if ($fotoPerfil != null)
+                {
+                    $respuestaArchivo = $this->SubirFotoPerfil($fotoPerfil, $cliente);
+                    if (isset($respuestaArchivo["error"]))
+                    {
+                        return $respuestaArchivo;
+                    }
+                    elseif ($cliente->Insertar())
+                    {
+                        return ['mensaje' => "Cliente Agregado Correctamente."];
+                    }
+                    else
+                    {
+                        return ['error' => "Error, Hubo un problema al guardar el usuario"];
+                    }
+
+                }
+                elseif ($cliente->Insertar())
+                    return ['mensaje' => "Cliente Modificado Correctamente."];
+                else 
+                    return ['error' => "Error, Hubo un problema al guardar el usuario"];
             }
             else
             {
-                return "El tipo del cliente es invalido";
+                return ['error' => "Error con la informacion del cliente"];
             }
         }
 
         public function ConsultarCliente($nroCliente, $tipoCliente)
         {
-            $cliente = Cliente::TraerUnCliente($nroCliente);
+            $cliente = Cliente::TraerUnCliente($nroCliente, $tipoCliente);
             if (isset($cliente))
             {
-
-                if ($cliente->tipoCliente === $tipoCliente)
-                {
-                    return $cliente->MostrarDatos();
-                }
-                else
-                {
-                    return "tipo de cliente incorrecto.";
-                }
+                return $cliente->MostrarDatos();
             }
             else
             {
@@ -76,9 +90,9 @@
             }
         }
 
-        public function ObtenerReservas($nroCliente)
+        public function ObtenerReservas($nroCliente, $tipoCliente)
         {
-            $cliente = Cliente::TraerUnCliente($nroCliente);
+            $cliente = Cliente::TraerUnCliente($nroCliente, $tipoCliente);
             if (isset($cliente))
                 $reservasCliente = Reserva::ObtenerReservasCliente($cliente);
             else
@@ -86,35 +100,36 @@
             return json_encode($reservasCliente, JSON_PRETTY_PRINT);
         }
 
-        // public function modificarCliente($id, $titulo, $cantante, $anio) {
-        //     $cliente = new Cliente();
-        //     $cliente->id = $id;
-        //     $cliente->titulo = $titulo;
-        //     $cliente->cantante = $cantante;
-        //     $cliente->año = $anio;
-        //     return $cliente->ModificarClienteParametros();
-        // }
+        public function EliminarUsuario($nroCliente, $tipoCliente)
+        {
+            $cliente = Cliente::TraerUnCliente($nroCliente, $tipoCliente);
+            if (isset($cliente))
+            {
+                if ($cliente->estado != "Eliminado")
+                {
+                    $nombreImagen = $cliente->nombreArchivo;
+                    $pathInicio = "./ImagenesDeClientes/2023/" . $nombreImagen;
+                    $pathFinal = "./ImagenesBackupClientes/2023/" . $nombreImagen;
+                    if(file_exists($pathInicio) and rename($pathInicio, $pathFinal))
+                        if ($cliente->Eliminar())
+                            return ['mensaje' => "El usuario se ha eliminado correctamente"];
+                        else
+                            return ['error' => "Error al eliminar el usuario"];
 
-        // public function borrarCliente($id) {
-        //     $Cliente = new Cliente();
-        //     $Cliente->id = $id;
-        //     return $Cliente->BorrarCliente();
-        // }
-
-        // public function listarClientes() {
-        //     return Cliente::TraerTodoLosClientes();
-        // }
-
-        // public function buscarClientePorId($id) {
-        //     $retorno = Cliente::TraerUnCliente($id);
-        //     if($retorno === false) { // Validamos que exista y si no mostramos un error
-        //         $retorno =  ['error' => 'No existe ese id'];
-        //     }
-        //     return $retorno;
-        // }
-
-        // public function buscarClientePorIdYAnio($id, $anio) {
-        //     return Cliente::TraerUnClienteAnioParamNombre($id, $anio);
-        // }
+                    else
+                        return ['error' => 'Error, no se pudo '];
+                }
+                else
+                {
+                    return ["error" => "Error, el usuario ya ha sido eliminado"];
+                }
+            }
+            else
+            {
+                return ["error" => "Error, credenciales del usuario incorrectas"];
+            }
+            
+            
+        }
     }
 ?>

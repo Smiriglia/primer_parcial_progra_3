@@ -6,7 +6,9 @@
         "fechaEntrada": "20\/12\/2005",
         "fechaSalida": "15\/03\/2008",
         "tipoHabitacion": "doble",
-        "importeTotal": "500"
+        "importeTotal": "500",
+        "estado": "Cancelado",
+        "motivoAjuste": "Cambio de habitacion"
     },
     {
         "id": 3,
@@ -15,7 +17,9 @@
         "fechaEntrada": "20\/12\/2005",
         "fechaSalida": "15\/03\/2008",
         "tipoHabitacion": "doble",
-        "importeTotal": "1000"
+        "importeTotal": "1000",
+        "estado": "Activo",
+        "motivoAjuste": null
     },
     {
         "id": 4,
@@ -24,6 +28,19 @@
         "fechaEntrada": "20\/12\/2005",
         "fechaSalida": "15\/03\/2008",
         "tipoHabitacion": "suite",
-        "importeTotal": "1200"
+        "importeTotal": "1200",
+        "estado": "Activo",
+        "motivoAjuste": null
+    },
+    {
+        "id": 5,
+        "tipoCliente": "individual",
+        "nro_cliente": "000001",
+        "fechaEntrada": "20\/12\/2005",
+        "fechaSalida": "15\/03\/2008",
+        "tipoHabitacion": "suite",
+        "importeTotal": "1200",
+        "estado": "Activo",
+        "motivoAjuste": null
     }
 ]

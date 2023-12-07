@@ -1,4 +1,5 @@
 <?php
+    require_once ("./controllers\ajuste_controller.php");
     require_once ("./capa_datos/class_manejador_archivos.php");
     class Reserva
     {
@@ -9,6 +10,8 @@
         public $fechaSalida;
         public $tipoHabitacion;
         public $importeTotal;
+        public $estado;
+        public $motivoAjuste = null;
 
         public function setTipoHabitacion($tipo)
         {
@@ -20,11 +23,6 @@
             }
             return false;
         }
-
-        // public function MostrarDatos()
-        // {
-        //     return "Pais: " . $this->pais . "  Ciudad: " . $this->ciudad . "  Telefono: " . $this->telefono;
-        // }
 
         public function Insertar($rutaArchivo = "./datos/reservas.json")
         {
@@ -42,9 +40,57 @@
 
             $objetoAccesoDato->guardar($reservas);
             $accesoUltimoIdReservas->guardar($objetoUltimoIdReservas);
+            $this->estado = "Activo";
             
             return $this->id;
         }
+        public function Actualizar($rutaArchivo = "./datos/reservas.json")
+        {
+            
+            $respuesta = [];
+            $reservas = Reserva::TraerTodo();
+            $indiceReserva = -1;
+
+            for ($i = 0; $i < count($reservas); $i++) {
+                if ($reservas[$i]->id === $this->id)
+                {
+                    $indiceReserva = $i;
+                    break;
+                }
+            }
+            
+            if ($indiceReserva != -1)
+            {
+                $reservas[$indiceReserva] = $this;
+                Reserva::GuardarTodo($reservas);
+                $respuesta["mensaje"] = "Se ha actualizado correctamente la reserva";
+            }
+            else
+            {
+                $respuesta["error"] = "Error, no se pudo actualizar la reserva";
+            }
+
+            return $respuesta;
+
+        }
+
+        public function Cancelar()
+        {
+            $this->estado = "Cancelado";
+            return $this->Actualizar();
+        }
+
+        public function Ajustar($motivoAjuste)
+        {
+            if (AjusteController::InsertarAjuste($this, $motivoAjuste))
+            {
+                $this->motivoAjuste = $motivoAjuste;
+                return $this->Actualizar();
+            }
+            else
+                return ['error' => 'Error, Datos de ajuste no validos'];
+        }
+        
 
         public static function TraerTodo($rutaArchivo = "./datos/reservas.json")
         {
@@ -61,9 +107,17 @@
                 $reserva->setTipoHabitacion($reservaNoParseado["tipoHabitacion"]);
                 $reserva->tipoCliente = $reservaNoParseado["tipoCliente"];
                 $reserva->importeTotal = $reservaNoParseado["importeTotal"];
+                $reserva->estado = $reservaNoParseado["estado"];
+                $reserva->motivoAjuste = $reservaNoParseado["motivoAjuste"];
                 $reservas[] = $reserva;
             }
             return $reservas;
+        }
+
+        public static function GuardarTodo($reservas, $rutaArchivo = "./datos/reservas.json")
+        {
+            $objetoAccesoDato = new ManejadorArchivos($rutaArchivo);
+            $objetoAccesoDato->guardar($reservas);
         }
 
         public static function TraerUnaReserva($id)
@@ -71,7 +125,7 @@
             $reservas = Reserva::TraerTodo();
             foreach ($reservas as $reserva) 
             {
-                if ($reserva->id === $id)
+                if ($reserva->id == $id)
                 {
                     return $reserva;
                 }
@@ -117,6 +171,23 @@
             }
             return $reservasFiltradas;
         }
+
+        public static function CancelarReserva($nro_cliente, $tipoCliente, $idReserva)
+        {
+            $reserva = Reserva::TraerUnaReserva($idReserva);
+            $respuesta = [];
+            if (isset($reserva) and $reserva->nro_cliente == $nro_cliente and $reserva->tipoCliente === $tipoCliente)
+            {
+                $respuesta = $reserva->Cancelar();
+            }
+            else
+            {
+                $respuesta["error"] = "Error, algun dato dato es incorrecto";
+            }
+            return $respuesta;
+        }
+
+
 
 
 

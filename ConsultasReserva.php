@@ -18,12 +18,12 @@
                 $fecha = $ayer->format('d/m/Y');
             }
 
-            return $reservaController->CalcularTotalReservas($tipoHabitacion, $fecha);
+            echo $reservaController->CalcularTotalReservas($tipoHabitacion, $fecha);
            
         }
-        elseif (isset($_GET["nro_cliente"]))
+        elseif (isset($_GET["nro_cliente"]) and isset($_GET["tipoCliente"]))
         {
-            echo $clienteController->ObtenerReservas($_GET["nro_cliente"]);
+            echo $clienteController->ObtenerReservas($_GET["nro_cliente"], $_GET["tipoCliente"]);
         }
         elseif (isset($_GET["fechaEntrada"]) and isset($_GET["fechaSalida"]))
         {

@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "c21b6494-5f26-4847-a6fd-9ad7f4a4b263",
+		"name": "PPP3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29418363"
+	},
+	"item": [
+		{
+			"name": "ClienteAlta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foto_perfil",
+							"type": "file",
+							"src": "Imagen4.png"
+						},
+						{
+							"key": "nombre",
+							"value": "Arauna",
+							"type": "text"
+						},
+						{
+							"key": "tipoDocumento",
+							"value": "le",
+							"type": "text"
+						},
+						{
+							"key": "numeroDocumento",
+							"value": "42452552",
+							"type": "text"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual",
+							"type": "text"
+						},
+						{
+							"key": "pais",
+							"value": "Polonia",
+							"type": "text"
+						},
+						{
+							"key": "ciudad",
+							"value": "Madrid",
+							"type": "text"
+						},
+						{
+							"key": "telefono",
+							"value": "123567547",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "abc@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "modalidadPago",
+							"value": "tarjeta",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/PPP/ClienteAlta.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ClienteAlta.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarCliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nro_cliente",
+							"value": "000005",
+							"type": "text"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "corporativo",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/PPP/ConsultarCliente.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ConsultarCliente.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReservaHabitacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foto_reserva",
+							"type": "file",
+							"src": "/C:/Users/USUARIO/Downloads/plataforma_madera e.png"
+						},
+						{
+							"key": "tipo_cliente",
+							"value": "individual",
+							"type": "text"
+						},
+						{
+							"key": "nro_cliente",
+							"value": "000001",
+							"type": "text"
+						},
+						{
+							"key": "fechaEntrada",
+							"value": "20/12/2005",
+							"type": "text"
+						},
+						{
+							"key": "fechaSalida",
+							"value": "15/03/2008",
+							"type": "text"
+						},
+						{
+							"key": "importeTotal",
+							"value": "1200",
+							"type": "text"
+						},
+						{
+							"key": "tipoHabitacion",
+							"value": "suite",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/PPP/ReservaHabitacion.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ReservaHabitacion.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultasReservaFecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/ConsultasReserva.php?tipoHabitacion=Doble&fecha=20/12/2005",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ConsultasReserva.php"
+					],
+					"query": [
+						{
+							"key": "tipoHabitacion",
+							"value": "Doble"
+						},
+						{
+							"key": "fecha",
+							"value": "20/12/2005"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultasReservasUsuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/ConsultasReserva.php?nro_cliente=000003&tipoCliente=individual",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ConsultasReserva.php"
+					],
+					"query": [
+						{
+							"key": "nro_cliente",
+							"value": "000003"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FiltrarEntreFechas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/ConsultasReserva.php?fechaEntrada=20/12/2005&fechaSalida=25/12/2005",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ConsultasReserva.php"
+					],
+					"query": [
+						{
+							"key": "fechaEntrada",
+							"value": "20/12/2005"
+						},
+						{
+							"key": "fechaSalida",
+							"value": "25/12/2005"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListarTipos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/ConsultasReserva.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ConsultasReserva.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ModificarCliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nro_cliente\": \"000001\",\r\n    \"nombre\": \"Arauna\",\r\n    \"tipoDocumento\": \"DNI\",\r\n    \"numeroDocumento\": \"42452552\",\r\n    \"email\": \"abc@gmail.com\",\r\n    \"tipoCliente\": \"individual\",\r\n    \"pais\": \"Polonia\",\r\n    \"ciudad\": \"Madrid\",\r\n    \"telefono\": \"123567545\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/PPP/ModificarCliente.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ModificarCliente.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CancelarReserva",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nro_cliente",
+							"value": "000003"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						},
+						{
+							"key": "idReserva",
+							"value": "2"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/PPP/CancelarReserva.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"CancelarReserva.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AjustesReserva",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "idReserva",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "motivoAjuste",
+							"value": "Cambio de habitacion",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/PPP/AjustesReserva.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"AjustesReserva.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
