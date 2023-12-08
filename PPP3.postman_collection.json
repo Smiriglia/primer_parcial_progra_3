@@ -21,17 +21,17 @@
 						},
 						{
 							"key": "nombre",
-							"value": "Arauna",
+							"value": "test2",
 							"type": "text"
 						},
 						{
 							"key": "tipoDocumento",
-							"value": "le",
+							"value": "pasaporte",
 							"type": "text"
 						},
 						{
 							"key": "numeroDocumento",
-							"value": "42452552",
+							"value": "42452555",
 							"type": "text"
 						},
 						{
@@ -67,14 +67,20 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost/PPP/ClienteAlta.php",
+					"raw": "http://localhost/PPP/index.php?accion=ClienteAlta",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ClienteAlta.php"
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ClienteAlta"
+						}
 					]
 				}
 			},
@@ -90,25 +96,31 @@
 					"formdata": [
 						{
 							"key": "nro_cliente",
-							"value": "000005",
+							"value": "000003",
 							"type": "text"
 						},
 						{
 							"key": "tipoCliente",
-							"value": "corporativo",
+							"value": "indi",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost/PPP/ConsultarCliente.php",
+					"raw": "http://localhost/PPP/index.php?accion=ConsultarCliente",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ConsultarCliente.php"
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultarCliente"
+						}
 					]
 				}
 			},
@@ -134,12 +146,12 @@
 						},
 						{
 							"key": "nro_cliente",
-							"value": "000001",
+							"value": "000003",
 							"type": "text"
 						},
 						{
 							"key": "fechaEntrada",
-							"value": "20/12/2005",
+							"value": "20/12/2008",
 							"type": "text"
 						},
 						{
@@ -149,31 +161,30 @@
 						},
 						{
 							"key": "importeTotal",
-							"value": "1200",
+							"value": "250",
 							"type": "text"
 						},
 						{
 							"key": "tipoHabitacion",
-							"value": "suite",
+							"value": "individual",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost/PPP/ReservaHabitacion.php",
+					"raw": "http://localhost/PPP/index.php?accion=ReservaHabitacion",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ReservaHabitacion.php"
+						"index.php"
 					],
 					"query": [
 						{
-							"key": "",
-							"value": null,
-							"disabled": true
+							"key": "accion",
+							"value": "ReservaHabitacion"
 						}
 					]
 				}
@@ -186,16 +197,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/PPP/ConsultasReserva.php?tipoHabitacion=Doble&fecha=20/12/2005",
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&tipoHabitacion=Doble&fecha=20/12/2005",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ConsultasReserva.php"
+						"index.php"
 					],
 					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
 						{
 							"key": "tipoHabitacion",
 							"value": "Doble"
@@ -210,28 +225,32 @@
 			"response": []
 		},
 		{
-			"name": "ConsultasReservasUsuario",
+			"name": "ConsultasReservasClienteActivas",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/PPP/ConsultasReserva.php?nro_cliente=000003&tipoCliente=individual",
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&nro_cliente=000001&tipoCliente=indi",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ConsultasReserva.php"
+						"index.php"
 					],
 					"query": [
 						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
 							"key": "nro_cliente",
-							"value": "000003"
+							"value": "000001"
 						},
 						{
 							"key": "tipoCliente",
-							"value": "individual"
+							"value": "indi"
 						}
 					]
 				}
@@ -244,23 +263,27 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/PPP/ConsultasReserva.php?fechaEntrada=20/12/2005&fechaSalida=25/12/2005",
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&fechaEntrada=20/12/2007&fechaSalida=25/12/2008",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ConsultasReserva.php"
+						"index.php"
 					],
 					"query": [
 						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
 							"key": "fechaEntrada",
-							"value": "20/12/2005"
+							"value": "20/12/2007"
 						},
 						{
 							"key": "fechaSalida",
-							"value": "25/12/2005"
+							"value": "25/12/2008"
 						}
 					]
 				}
@@ -269,18 +292,31 @@
 		},
 		{
 			"name": "ListarTipos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
 				"url": {
-					"raw": "http://localhost/PPP/ConsultasReserva.php",
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ConsultasReserva.php"
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						}
 					]
 				}
 			},
@@ -293,7 +329,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nro_cliente\": \"000001\",\r\n    \"nombre\": \"Arauna\",\r\n    \"tipoDocumento\": \"DNI\",\r\n    \"numeroDocumento\": \"42452552\",\r\n    \"email\": \"abc@gmail.com\",\r\n    \"tipoCliente\": \"individual\",\r\n    \"pais\": \"Polonia\",\r\n    \"ciudad\": \"Madrid\",\r\n    \"telefono\": \"123567545\"\r\n}",
+					"raw": "{\r\n    \"nro_cliente\": \"000001\",\r\n    \"nombre\": \"Pedro\",\r\n    \"tipoDocumento\": \"DNI\",\r\n    \"numeroDocumento\": \"123567547\",\r\n    \"email\": \"abc@gmail.com\",\r\n    \"tipoCliente\": \"individual\",\r\n    \"pais\": \"Polonia\",\r\n    \"ciudad\": \"Madrid\",\r\n    \"telefono\": \"123567545\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -301,14 +337,20 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/PPP/ModificarCliente.php",
+					"raw": "http://localhost/PPP/index.php?accion=ModificarCliente",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"ModificarCliente.php"
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ModificarCliente"
+						}
 					]
 				}
 			},
@@ -332,19 +374,25 @@
 						},
 						{
 							"key": "idReserva",
-							"value": "2"
+							"value": "24"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost/PPP/CancelarReserva.php",
+					"raw": "http://localhost/PPP/index.php?accion=CancelarReserva",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"CancelarReserva.php"
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "CancelarReserva"
+						}
 					]
 				}
 			},
@@ -352,18 +400,15 @@
 		},
 		{
 			"name": "AjustesReserva",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
 						{
 							"key": "idReserva",
-							"value": "1",
+							"value": "23",
 							"type": "text"
 						},
 						{
@@ -374,14 +419,259 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost/PPP/AjustesReserva.php",
+					"raw": "http://localhost/PPP/index.php?accion=AjusteReserva",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"PPP",
-						"AjustesReserva.php"
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "AjusteReserva"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EliminarUsuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/index.php?accion=BorrarCliente&nro_cliente=000005&tipoCliente=individual",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "BorrarCliente"
+						},
+						{
+							"key": "nro_cliente",
+							"value": "000005"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarImporteCancelado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/ConsultasReserva.php?accion=ConsultaReservas&tipoCliente=individual&fecha=20/12/2008&tipoListado=fecha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"ConsultasReserva.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						},
+						{
+							"key": "fecha",
+							"value": "20/12/2008"
+						},
+						{
+							"key": "tipoListado",
+							"value": "fecha"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarReservasCanceladasCliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&nombreCliente=Persival&tipoCliente=individual&tipoListado=Cancelado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
+							"key": "nombreCliente",
+							"value": "Persival"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						},
+						{
+							"key": "tipoListado",
+							"value": "Cancelado"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarReservasCanceladasFechas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&fechaEntrada=20/12/2004&fechaSalida=25/12/2012&tipoListado=Cancelado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
+							"key": "fechaEntrada",
+							"value": "20/12/2004"
+						},
+						{
+							"key": "fechaSalida",
+							"value": "25/12/2012"
+						},
+						{
+							"key": "tipoListado",
+							"value": "Cancelado"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultasReservasCanceladasTipoCliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&tipoCliente=individual&tipoListado=Cancelado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						},
+						{
+							"key": "tipoListado",
+							"value": "Cancelado"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarReservasCliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&nombreCliente=Persival&tipoCliente=individual",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
+							"key": "nombreCliente",
+							"value": "Persival"
+						},
+						{
+							"key": "tipoCliente",
+							"value": "individual"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarReservasModalidadPago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/PPP/index.php?accion=ConsultaReservas&modalidadPago=tarjeta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"PPP",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "accion",
+							"value": "ConsultaReservas"
+						},
+						{
+							"key": "modalidadPago",
+							"value": "tarjeta"
+						}
 					]
 				}
 			},
