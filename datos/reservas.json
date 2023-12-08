@@ -1,46 +1,62 @@
 [
     {
-        "id": 2,
-        "tipoCliente": "individual",
+        "id": 20,
+        "tipoCliente": "indi",
         "nro_cliente": "000003",
         "fechaEntrada": "20\/12\/2005",
         "fechaSalida": "15\/03\/2008",
+        "tipoHabitacion": "suite",
+        "importeTotal": "1245",
+        "estado": "Activo",
+        "motivoAjuste": null,
+        "modalidadPago": "efectivo"
+    },
+    {
+        "id": 21,
+        "tipoCliente": "indi",
+        "nro_cliente": "000004",
+        "fechaEntrada": "20\/12\/2008",
+        "fechaSalida": "15\/03\/2008",
+        "tipoHabitacion": "individual",
+        "importeTotal": "146",
+        "estado": "Activo",
+        "motivoAjuste": null,
+        "modalidadPago": "tarjeta"
+    },
+    {
+        "id": 22,
+        "tipoCliente": "indi",
+        "nro_cliente": "000004",
+        "fechaEntrada": "20\/12\/2008",
+        "fechaSalida": "15\/03\/2008",
         "tipoHabitacion": "doble",
-        "importeTotal": "500",
+        "importeTotal": "300",
         "estado": "Cancelado",
-        "motivoAjuste": "Cambio de habitacion"
+        "motivoAjuste": null,
+        "modalidadPago": "tarjeta"
     },
     {
-        "id": 3,
-        "tipoCliente": "individual",
+        "id": 23,
+        "tipoCliente": "indi",
         "nro_cliente": "000003",
-        "fechaEntrada": "20\/12\/2005",
+        "fechaEntrada": "20\/12\/2008",
         "fechaSalida": "15\/03\/2008",
         "tipoHabitacion": "doble",
-        "importeTotal": "1000",
-        "estado": "Activo",
-        "motivoAjuste": null
+        "importeTotal": "900",
+        "estado": "Cancelado",
+        "motivoAjuste": "Cambio de habitacion",
+        "modalidadPago": "efectivo"
     },
     {
-        "id": 4,
-        "tipoCliente": "individual",
-        "nro_cliente": "000001",
-        "fechaEntrada": "20\/12\/2005",
+        "id": 24,
+        "tipoCliente": "indi",
+        "nro_cliente": "000003",
+        "fechaEntrada": "20\/12\/2002",
         "fechaSalida": "15\/03\/2008",
-        "tipoHabitacion": "suite",
-        "importeTotal": "1200",
-        "estado": "Activo",
-        "motivoAjuste": null
-    },
-    {
-        "id": 5,
-        "tipoCliente": "individual",
-        "nro_cliente": "000001",
-        "fechaEntrada": "20\/12\/2005",
-        "fechaSalida": "15\/03\/2008",
-        "tipoHabitacion": "suite",
-        "importeTotal": "1200",
-        "estado": "Activo",
-        "motivoAjuste": null
+        "tipoHabitacion": "individual",
+        "importeTotal": "250",
+        "estado": "Cancelado",
+        "motivoAjuste": null,
+        "modalidadPago": "efectivo"
     }
 ]

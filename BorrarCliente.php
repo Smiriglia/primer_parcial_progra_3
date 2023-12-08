@@ -11,4 +11,4 @@
     }
 
     echo json_encode($respuesta, JSON_PRETTY_PRINT);
-?>
+?>  

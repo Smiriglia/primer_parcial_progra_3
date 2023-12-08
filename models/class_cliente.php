@@ -144,6 +144,7 @@
                 $cliente->telefono = $clienteNoParseado["telefono"];
                 $cliente->estado = $clienteNoParseado["estado"];
                 $cliente->nombreArchivo = $clienteNoParseado["nombreArchivo"];
+                $cliente->modalidadPago = $clienteNoParseado["modalidadPago"];
                 $clientes[] = $cliente;
             }
             return $clientes;
@@ -163,6 +164,20 @@
                 $clienteAux = new Cliente();
                 $clienteAux->setTipoCliente($tipoCliente);
                 if ($cliente->nro_cliente === $nro_cliente and $cliente->tipoCliente == $clienteAux->tipoCliente)
+                {
+                    return $cliente;
+                }
+            }
+        }
+
+        public static function TraerUnClienteNombreTipo($nombreCliente, $tipoCliente)
+        {
+            $clientes = Cliente::TraerTodo();
+            foreach ($clientes as $cliente) 
+            {
+                $clienteAux = new Cliente();
+                $clienteAux->setTipoCliente($tipoCliente);
+                if ($cliente->nombre === $nombreCliente and $cliente->tipoCliente == $clienteAux->tipoCliente)
                 {
                     return $cliente;
                 }

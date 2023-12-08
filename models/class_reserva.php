@@ -12,6 +12,7 @@
         public $importeTotal;
         public $estado;
         public $motivoAjuste = null;
+        public $modalidadPago;
 
         public function setTipoHabitacion($tipo)
         {
@@ -36,11 +37,11 @@
 
             $objetoUltimoIdReservas["id"] += 1;
             $this->id = $objetoUltimoIdReservas["id"];
+            $this->estado = "Activo";
             $reservas[] = $this;
 
             $objetoAccesoDato->guardar($reservas);
             $accesoUltimoIdReservas->guardar($objetoUltimoIdReservas);
-            $this->estado = "Activo";
             
             return $this->id;
         }
@@ -109,6 +110,7 @@
                 $reserva->importeTotal = $reservaNoParseado["importeTotal"];
                 $reserva->estado = $reservaNoParseado["estado"];
                 $reserva->motivoAjuste = $reservaNoParseado["motivoAjuste"];
+                $reserva->modalidadPago = $reservaNoParseado["modalidadPago"];
                 $reservas[] = $reserva;
             }
             return $reservas;
@@ -138,7 +140,9 @@
             $tipoHabitacion = strtolower($tipoHabitacion);
             foreach ($reservas as $reserva) 
             {
-                if ($reserva->tipoHabitacion === $tipoHabitacion and $reserva->fechaEntrada == $fecha)
+                if ($reserva->tipoHabitacion === $tipoHabitacion and
+                    $reserva->fechaEntrada == $fecha and
+                    $reserva->estado !== "Cancelado")
                 {
                     $importeTotal += $reserva->importeTotal;
                 }
@@ -146,13 +150,62 @@
             return $importeTotal;
         }
 
-        public static function ObtenerReservasCliente($cliente)
+        public static function ObtenerReservasActivasCliente($cliente)
         {
             $reservasCliente = [];
             $reservas = Reserva::TraerTodo();
             foreach ($reservas as $reserva) 
             {
+                if ($cliente->nro_cliente == $reserva->nro_cliente and $reserva->estado !== "Cancelado" )
+                    $reservasCliente[] = $reserva;
+            }
+            return $reservasCliente;
+        }
+
+        public static function ObtenerReservasCanceladasCliente($cliente)
+        {
+
+            $reservasCliente = [];
+            $reservas = Reserva::TraerTodo();
+            foreach ($reservas as $reserva) 
+            {
+                if ($cliente->nro_cliente == $reserva->nro_cliente and $reserva->estado === "Cancelado")
+                    $reservasCliente[] = $reserva;
+            }
+            return $reservasCliente;
+        }
+
+        public static function ObtenerReservas($cliente)
+        {
+
+            $reservasCliente = [];
+            $reservas = Reserva::TraerTodo();
+            foreach ($reservas as $reserva) 
+            {
                 if ($cliente->nro_cliente == $reserva->nro_cliente)
+                    $reservasCliente[] = $reserva;
+            }
+            return $reservasCliente;
+        }
+        public static function ListarModalidadPago($modalidadPago)
+        {
+            $reservasModalidad = [];
+            $reservas = Reserva::TraerTodo();
+            foreach ($reservas as $reserva) 
+            {
+                if ($reserva->modalidadPago === $modalidadPago)
+                    $reservasModalidad[] = $reserva;
+            }
+            return $reservasModalidad;
+        }
+
+        public static function ObtenerReservasCanceladasTipoCliente($tipoCliente)
+        {
+            $reservasCliente = [];
+            $reservas = Reserva::TraerTodo();
+            foreach ($reservas as $reserva) 
+            {
+                if ($reserva->tipoCliente === $tipoCliente and $reserva->estado === "Cancelado")
                     $reservasCliente[] = $reserva;
             }
             return $reservasCliente;
@@ -176,7 +229,10 @@
         {
             $reserva = Reserva::TraerUnaReserva($idReserva);
             $respuesta = [];
-            if (isset($reserva) and $reserva->nro_cliente == $nro_cliente and $reserva->tipoCliente === $tipoCliente)
+
+            if (isset($reserva) and
+                $reserva->nro_cliente == $nro_cliente and
+                $reserva->tipoCliente === $tipoCliente)
             {
                 $respuesta = $reserva->Cancelar();
             }
@@ -186,92 +242,5 @@
             }
             return $respuesta;
         }
-
-
-
-
-
-    //     public static function TraerUnCdAnio($id, $anio)
-    //     {
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("select  titel as titulo, interpret as cantante,jahr as año from cds  WHERE id=? AND jahr=?");
-    //         $consulta->execute(array($id, $anio));
-    //         $cdBuscado = $consulta->fetchObject('cd');
-    //         return $cdBuscado;
-    //     }
-
-    //     public static function TraerUnCdAnioParamNombre($id, $anio)
-    //     {
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("select  titel as titulo, interpret as cantante,jahr as año from cds  WHERE id=:id AND jahr=:anio");
-    //         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
-    //         $consulta->bindValue(':anio', $anio, PDO::PARAM_STR);
-    //         $consulta->execute();
-    //         $cdBuscado = $consulta->fetchObject('cd');
-    //         return $cdBuscado;
-    //     }
-
-    //     public static function TraerUnCdAnioParamNombreArray($id, $anio)
-    //     {
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("select  titel as titulo, interpret as cantante,jahr as año from cds  WHERE id=:id AND jahr=:anio");
-    //         $consulta->execute(array(':id' => $id, ':anio' => $anio));
-    //         $consulta->execute();
-    //         $cdBuscado = $consulta->fetchObject('cd');
-    //         return $cdBuscado;
-    //     }
-
-    //     public function ModificarCd()
-    //     {
-
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("
-    //                 update cds 
-    //                 set titel='$this->titulo',
-    //                 interpret='$this->cantante',
-    //                 jahr='$this->año'
-    //                 WHERE id='$this->id'");
-    //         return $consulta->execute();
-    //     }
-
-    //     public function ModificarCdParametros()
-    //     {
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("
-    //                 update cds 
-    //                 set titel=:titulo,
-    //                 interpret=:cantante,
-    //                 jahr=:anio
-    //                 WHERE id=:id");
-    //         $consulta->bindValue(':id', $this->id, PDO::PARAM_INT);
-    //         $consulta->bindValue(':titulo', $this->titulo, PDO::PARAM_INT);
-    //         $consulta->bindValue(':anio', $this->año, PDO::PARAM_STR);
-    //         $consulta->bindValue(':cantante', $this->cantante, PDO::PARAM_STR);
-    //         return $consulta->execute();
-    //     }
-
-    //     public function BorrarCd()
-    //     {
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("
-    //                 delete 
-    //                 from cds 				
-    //                 WHERE id=:id");
-    //         $consulta->bindValue(':id', $this->id, PDO::PARAM_INT);
-    //         $consulta->execute();
-    //         return $consulta->rowCount();
-    //     }
-
-    //     public static function BorrarCdPorAnio($año)
-    //     {
-    //         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    //         $consulta = $objetoAccesoDato->RetornarConsulta("
-    //                 delete 
-    //                 from cds 				
-    //                 WHERE jahr=:anio");
-    //         $consulta->bindValue(':anio', $año, PDO::PARAM_INT);
-    //         $consulta->execute();
-    //         return $consulta->rowCount();
-    //     }
     }
 ?>

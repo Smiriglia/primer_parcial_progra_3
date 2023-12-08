@@ -2,16 +2,16 @@
     {
         "nro_cliente": "000001",
         "nombre": "Pedro",
-        "tipoDocumento": "pasaporte",
-        "numeroDocumento": "42452551",
+        "tipoDocumento": "dni",
+        "numeroDocumento": "123567547",
         "email": "abc@gmail.com",
         "tipoCliente": "indi",
-        "pais": "Poloni",
+        "pais": "Polonia",
         "ciudad": "Madrid",
-        "telefono": "123567547",
+        "telefono": "123567545",
         "modalidadPago": "efectivo",
         "estado": "Eliminado",
-        "nombreArchivo": "000001in.png"
+        "nombreArchivo": null
     },
     {
         "nro_cliente": "000002",
@@ -26,5 +26,47 @@
         "modalidadPago": "efectivo",
         "estado": "Eliminado",
         "nombreArchivo": "000002in.png"
+    },
+    {
+        "nro_cliente": "000003",
+        "nombre": "Persival",
+        "tipoDocumento": "pasaporte",
+        "numeroDocumento": "42452553",
+        "email": "abc@gmail.com",
+        "tipoCliente": "indi",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
+        "telefono": "123567547",
+        "modalidadPago": "efectivo",
+        "estado": "Activo",
+        "nombreArchivo": "000003in.png"
+    },
+    {
+        "nro_cliente": "000004",
+        "nombre": "test",
+        "tipoDocumento": "pasaporte",
+        "numeroDocumento": "42452554",
+        "email": "abc@gmail.com",
+        "tipoCliente": "indi",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
+        "telefono": "123567547",
+        "modalidadPago": "tarjeta",
+        "estado": "Activo",
+        "nombreArchivo": "000004in.png"
+    },
+    {
+        "nro_cliente": "000005",
+        "nombre": "test2",
+        "tipoDocumento": "pasaporte",
+        "numeroDocumento": "42452555",
+        "email": "abc@gmail.com",
+        "tipoCliente": "indi",
+        "pais": "Polonia",
+        "ciudad": "Madrid",
+        "telefono": "123567547",
+        "modalidadPago": "tarjeta",
+        "estado": "Eliminado",
+        "nombreArchivo": "000005in.png"
     }
 ]

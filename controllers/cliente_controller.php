@@ -82,19 +82,63 @@
             $cliente = Cliente::TraerUnCliente($nroCliente, $tipoCliente);
             if (isset($cliente))
             {
-                return $cliente->MostrarDatos();
+                if ($cliente->estado != "Eliminado")
+                    return ["mensaje" => $cliente->MostrarDatos()];
+                else
+                    return ["error" => "El cliente que intentas consultar esta eliminado"];
             }
             else
             {
-                return "Cliente inexistente";
+                return ["error" => "Cliente inexistente"];
             }
         }
 
-        public function ObtenerReservas($nroCliente, $tipoCliente)
+        public function ObtenerReservasActivas($nroCliente, $tipoCliente)
         {
             $cliente = Cliente::TraerUnCliente($nroCliente, $tipoCliente);
             if (isset($cliente))
-                $reservasCliente = Reserva::ObtenerReservasCliente($cliente);
+                if ($cliente->estado != "Eliminado")
+                    $reservasCliente = Reserva::ObtenerReservasActivasCliente($cliente);
+                else
+                    $reservasCliente = ["error" => "El cliente esta eliminado"];
+            else
+                $reservasCliente = [];
+            return json_encode($reservasCliente, JSON_PRETTY_PRINT);
+        }
+
+        public function ObtenerCancelacionesCliente($nombreCliente, $tipoCliente)
+        {
+            $cliente = Cliente::TraerUnClienteNombreTipo($nombreCliente, $tipoCliente);
+            if (isset($cliente))
+                if ($cliente->estado != "Eliminado")
+                    $reservasCliente = Reserva::ObtenerReservasCanceladasCliente($cliente);
+                else
+                    $reservasCliente = ["error" => "El cliente esta eliminado"];
+            else
+                $reservasCliente = [];
+            return json_encode($reservasCliente, JSON_PRETTY_PRINT);
+        }
+
+        public function ObtenerReservas($nombreCliente, $tipoCliente)
+        {
+            $cliente = Cliente::TraerUnClienteNombreTipo($nombreCliente, $tipoCliente);
+            if (isset($cliente))
+                if ($cliente->estado != "Eliminado")
+                    $reservasCliente = Reserva::ObtenerReservas($cliente);
+                else
+                    $reservasCliente = ["error" => "El cliente esta eliminado"];
+            else
+                $reservasCliente = [];
+            return json_encode($reservasCliente, JSON_PRETTY_PRINT);
+        }
+
+        
+
+        public function ObtenerCancelacionesTipoCliente($tipoCliente)
+        {
+            $clienteAux = new Cliente();
+            if ($clienteAux->setTipoCliente($tipoCliente))
+                    $reservasCliente = Reserva::ObtenerReservasCanceladasTipoCliente($clienteAux->tipoCliente);
             else
                 $reservasCliente = [];
             return json_encode($reservasCliente, JSON_PRETTY_PRINT);
@@ -117,7 +161,7 @@
                             return ['error' => "Error al eliminar el usuario"];
 
                     else
-                        return ['error' => 'Error, no se pudo '];
+                        return ['error' => 'Error, al mover la foto de perfil a backup'];
                 }
                 else
                 {
