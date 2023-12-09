@@ -38,23 +38,29 @@
 
             if (isset($clienteAux))
             {
-                
-                $reserva->nro_cliente = $nro_cliente;
-                $reserva->fechaEntrada = $fechaEntrada;
-                $reserva->fechaSalida = $fechaSalida;
-                $reserva->importeTotal = $importeTotal;
-                
-                if ($reserva->setTipoHabitacion($tipoHabitacion) and isset($clienteAux))
+                if ($clienteAux->estado !== "Cancelado")
                 {
-                    $reserva->tipoCliente = $clienteAux->tipoCliente;
-                    $reserva->modalidadPago = $clienteAux->modalidadPago;
+                    $reserva->nro_cliente = $nro_cliente;
+                    $reserva->fechaEntrada = $fechaEntrada;
+                    $reserva->fechaSalida = $fechaSalida;
+                    $reserva->importeTotal = $importeTotal;
+                    
+                    if ($reserva->setTipoHabitacion($tipoHabitacion) and isset($clienteAux))
+                    {
+                        $reserva->tipoCliente = $clienteAux->tipoCliente;
+                        $reserva->modalidadPago = $clienteAux->modalidadPago;
 
-                    $id = $reserva->Insertar();
-                    return $this->SubirFotoReserva($fotoReserva, $tipoCliente, $nro_cliente, $id);
+                        $id = $reserva->Insertar();
+                        return $this->SubirFotoReserva($fotoReserva, $tipoCliente, $nro_cliente, $id);
+                    }
+                    else
+                    {
+                        return ["error" => "El tipo del reserva es invalido"];
+                    }
                 }
                 else
                 {
-                    return ["error" => "El tipo del reserva es invalido"];
+                    return ["error" => "Un cliente eliminado no puede crear una reserva"];
                 }
             }
             else
