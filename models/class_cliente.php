@@ -78,6 +78,7 @@
             for ($i = 0; $i < count($clientes); $i++) {
                 if ($clientes[$i]->nro_cliente == $this->nro_cliente)
                 {
+                    $this->nombreArchivo = $clientes[$i]->nombreArchivo;
                     $clientes[$i] = $this;
                     $flagEncontrado = true;
                     break;
